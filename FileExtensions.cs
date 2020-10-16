@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 
-namespace issFTP {
+namespace SimpleFtpFileWatcher {
   public static class FileExtensions {
     public static string AppendTimeStamp (this string fileName) {
 

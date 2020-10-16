@@ -1,7 +1,5 @@
-using System;
-using System.Collections.Generic;
 
-namespace issFTP
+namespace SimpleFtpFileWatcher
 {
     public class AppSettings
     {

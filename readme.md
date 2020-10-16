@@ -1,8 +1,8 @@
-# issFTP
+# SimpleFtpFileWatcher
 
-Industry Safe SFTP Client and File watcher.  This client will watch a directory for new files, upload these new files to the IndustrySafe SFTP server, and then Delete the uploaded files.
+Simple (s)FTP Client and File watcher.  This client will watch a directory for new files, upload these new files to the and SFTP and/or a FTP server, and then Delete or timestamp the uploaded files.
 
-issFTP is designed to be run as a Windows service, although it can be run as a 
+SimpleFtpFileWatcher is designed to be run as a Windows service, although it can be run as a 
 console application as well.
 
 
@@ -11,7 +11,7 @@ console application as well.
 This is a dotnet core 3.1 project. [Download](https://dotnet.microsoft.com/download/dotnet-core) and install the dotnet core SDK to build this application.
 [Visual Studio Code](https://code.visualstudio.com/) is reccomended for editing and debugging, but any editor will work. This application was only tested on Windows, but operation on other runtimes should be possible.  
 
-issFTP requires the SSH.NET library.  You can restore the required dependencies from the .NET cli.
+SimpleFtpFileWatcher requires the SSH.NET library.  You can restore the required dependencies from the .NET cli.
 
     dotnet restore
 
@@ -30,38 +30,67 @@ To publish this application as a Windows service, copy the publish directory to 
 
 Create the service with
 
-    sc create issFTP binpath="{full path to publish folder}/issftp.exe"
+    sc create SimpleFtpFileWatcher binpath="{full path to publish folder}/SimpleFtpFileWatcher.exe"
 
 Start the service with
 
-    sc start issFTP
+    sc start SimpleFtpFileWatcher
 
 Stop the service with 
 
-    sc stop issFTP
+    sc stop SimpleFtpFileWatcher
 
 Delete the service with 
 
-    sc delete issFTP
+    sc delete SimpleFtpFileWatcher
 
 
 ## Configuration
 
-Configuration is handled in the appsettings.json file.  This section of note is the AppSettings section.  Here you can change the local folder to be watched, the remote host, the credentials to the remote host,
-the allowed filenames, and the directory on the remote where the files will be uploaded.
+Configuration is handled in the appsettings.json file.  This section of note is the AppSettings section.  
+Here you can change the local folder to be watched, the remote host, the credentials to the remote host,
+the filenames or file extensions to watch for, and the directory on the remote where the files will be uploaded.
 
-    "AppSettings": {
-      "LocalFolder": "D:\\sftp",
-      "Username" : "rpmasset",
-      "Password" : "QKa3Rbz7!i9KXlDy8",
-      "SFTPUri": "sftp.industrysafe.com",
-      "EmployeesFile" : "RPMEMP.TXT",
-      "FacilitiesFile" : "RPMFAC.TXT",
-      "AssetsFile" : "RPMASSETS.TXT",
-      "RemoteDirectory":"incoming"
-    }
+      "AppSettings": {
+        "DeleteAfterUpload":"False",
+        "WatchedFolder":"c:\\watched",
+        "FtpRemote": 
+        {
+          "Address":"127.0.0.1",
+          "Username":"tester",
+          "Password":"password",
+          "Type":"ftp",
+          "FilesToWatch":["*.txt"],
+          "RemoteDirectory":""
+        },
+        "SftpRemote":
+        {
+          "Address":"127.0.0.1",
+          "Username":"tester",
+          "Password":"password",
+          "Type":"sftp",
+          "FilesToWatch":["*.csv"],
+          "RemoteDirectory":""
+        }
+      }
 
-## Hosting
 
-The service is currently hosted on the server `rpmsql02.rpmx.local` in the `c:\issftp\publish` folder.
+## Debugging Tools
+
+Tested against the two following development servers:
+
+1. [Filezilla Ftp Server](https://filezilla-project.org/download.php?type=server)
+2. [Rebex Tiny Sftp Server](https://labs.rebex.net/tiny-sftp-server)
+
+
+## License
+
+The MIT License (MIT)
+Copyright © 2020 Daniel Byrne
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 

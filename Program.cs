@@ -1,11 +1,9 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging.EventLog;
-using Microsoft.Extensions.Logging;
-using issFTP.Services;
-using Microsoft.Extensions.Configuration;
+using SimpleFtpFileWatcher.Services;
 
-namespace issFTP {
+namespace SimpleFtpFileWatcher {
   public class Program {
     public static void Main (string[] args) {
       CreateHostBuilder (args)

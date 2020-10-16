@@ -1,16 +1,15 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using issFTP.Services;
+using SimpleFtpFileWatcher.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace issFTP {
+namespace SimpleFtpFileWatcher {
   public class Worker : BackgroundService {
     private readonly ILogger<Worker> _logger; 
     private FileSystemWatcher _folderWatcher;

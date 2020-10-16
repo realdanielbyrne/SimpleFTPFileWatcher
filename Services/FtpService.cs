@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Text;
 
-namespace issFTP.Services {
+namespace SimpleFtpFileWatcher.Services {
 
   public interface IFtpService {
     void SendFile (string name, string fullPath);

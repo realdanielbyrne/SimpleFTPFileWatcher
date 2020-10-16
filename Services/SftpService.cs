@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Renci.SshNet;
 
-namespace issFTP.Services {
+namespace SimpleFtpFileWatcher.Services {
 
   public interface ISftpService {
     void SendFile (string name, string fullPath);
